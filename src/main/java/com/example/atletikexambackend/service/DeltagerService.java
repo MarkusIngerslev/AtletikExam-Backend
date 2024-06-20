@@ -46,4 +46,8 @@ public class DeltagerService {
         resultatRepository.deleteAll(resultater);
         deltagerRepository.deleteById(id);
     }
+
+    public List<Deltager> findDeltagerByNavn(String navn) {
+        return deltagerRepository.findDeltagerByNavn(navn);
+    }
 }

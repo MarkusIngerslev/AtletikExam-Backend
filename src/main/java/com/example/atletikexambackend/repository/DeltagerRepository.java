@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DeltagerRepository extends JpaRepository<Deltager, Long> {
-
+    List<Deltager> findDeltagerByNavn(String navn);
 }

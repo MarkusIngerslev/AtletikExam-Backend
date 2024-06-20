@@ -27,6 +27,11 @@ public class DeltagerController {
         return deltager != null ? ResponseEntity.ok(deltager) : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/navn/{navn}")
+    public List<Deltager> findDeltagerByName(@PathVariable String navn) {
+        return deltagerService.findDeltagerByNavn(navn);
+    }
+
     @PostMapping
     public ResponseEntity<Deltager> opretDeltager(@RequestBody Deltager deltager) {
         Deltager nyDeltager = deltagerService.opretDeltager(deltager);
