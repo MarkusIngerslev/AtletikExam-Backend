@@ -29,4 +29,8 @@ public class Resultat {
     @ManyToOne
     @JoinColumn(name = "disciplin_id")
     private Disciplin disciplin;
+
+    public void setResultat(double nytResultat) {
+        this.resultatvalue = String.valueOf(nytResultat);
+    }
 }
