@@ -18,7 +18,7 @@ public class Resultat {
     private Long id;
 
     private String resultattype;
-    private LocalDate dato;
+    private String dato;
     private String resultatvalue;
 
     @ManyToOne
