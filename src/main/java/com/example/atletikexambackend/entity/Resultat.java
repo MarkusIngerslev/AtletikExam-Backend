@@ -1,5 +1,6 @@
 package com.example.atletikexambackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,11 @@ public class Resultat {
     private String resultatvalue;
 
     @ManyToOne
+    @JoinColumn(name = "deltager_id")
+    @JsonBackReference
     private Deltager deltager;
 
     @ManyToOne
+    @JoinColumn(name = "disciplin_id")
     private Disciplin disciplin;
 }

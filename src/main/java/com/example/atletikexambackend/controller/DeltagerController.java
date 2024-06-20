@@ -35,8 +35,13 @@ public class DeltagerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Deltager> opdaterDeltager(@PathVariable Long id, @RequestBody Deltager deltager) {
-        Deltager opdateretDeltager = deltagerService.opdaterDeltager(deltager);
-        return opdateretDeltager != null ? ResponseEntity.ok(opdateretDeltager) : ResponseEntity.notFound().build();
+        try {
+            deltager.setId(id);
+            Deltager opdateretDeltager = deltagerService.opdaterDeltager(deltager);
+            return ResponseEntity.ok(opdateretDeltager);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

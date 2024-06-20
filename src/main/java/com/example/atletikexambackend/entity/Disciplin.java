@@ -19,7 +19,4 @@ public class Disciplin {
 
     private String navn;
     private String resultattype;
-
-    @ManyToMany(mappedBy = "discipliner")
-    private List<Deltager> deltagere;
 }

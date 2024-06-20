@@ -1,5 +1,6 @@
 package com.example.atletikexambackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class Deltager {
     private int alder;
     private String klub;
 
-    @ManyToMany
-    private List<Disciplin> discipliner;
-
+    @OneToMany(mappedBy = "deltager", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Resultat> resultater;
 }
