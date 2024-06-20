@@ -55,6 +55,24 @@ public class ResultatControllerTest {
     }
 
     @Test
+    public void testVisAlleResultater() throws Exception {
+        when(resultatService.visAlleResultater()).thenReturn(Collections.singletonList(resultat));
+
+        mockMvc.perform(get("/api/resultater")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testVisResultat() throws Exception {
+        when(resultatService.visResultat(anyLong())).thenReturn(resultat);
+
+        mockMvc.perform(get("/api/resultater/" + testResultatId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void testRegistrerResultat() throws Exception {
         when(resultatService.registrerResultat(anyLong(), anyLong(), anyDouble())).thenReturn(resultat);
 

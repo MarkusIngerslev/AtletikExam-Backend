@@ -2,6 +2,7 @@ package com.example.atletikexambackend.controller;
 
 import com.example.atletikexambackend.entity.Resultat;
 import com.example.atletikexambackend.service.ResultatService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,24 @@ public class ResultatController {
 
     @Autowired
     private ResultatService resultatService;
+
+    @GetMapping
+    public ResponseEntity<List<Resultat>> visAlleResultater() {
+        List<Resultat> resultater = resultatService.visAlleResultater();
+        return ResponseEntity.ok(resultater);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Resultat> visResultat(@PathVariable Long id) {
+        Resultat resultat = resultatService.visResultat(id);
+        return ResponseEntity.ok(resultat);
+    }
+
+    @GetMapping("/disciplin/{id}")
+    public ResponseEntity<List<Resultat>> visAlleResultaterForDisciplin(@PathVariable Long id) {
+        List<Resultat> resultater = resultatService.visAlleResultaterForDisciplin(id);
+        return ResponseEntity.ok(resultater);
+    }
 
     @PostMapping
     public ResponseEntity<Resultat> registrerResultat(@RequestParam Long deltagerId, @RequestParam Long disciplinId, @RequestParam double resultat) {
@@ -40,9 +59,5 @@ public class ResultatController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/disciplin/{id}")
-    public ResponseEntity<List<Resultat>> visAlleResultaterForDisciplin(@PathVariable Long id) {
-        List<Resultat> resultater = resultatService.visAlleResultaterForDisciplin(id);
-        return ResponseEntity.ok(resultater);
-    }
+
 }

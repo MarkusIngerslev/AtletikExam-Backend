@@ -66,4 +66,13 @@ public class ResultatService {
     public List<Resultat> visAlleResultaterForDisciplin(Long disciplinId) {
         return resultatRepository.findByDisciplinId(disciplinId);
     }
+
+    public List<Resultat> visAlleResultater() {
+        return resultatRepository.findAll();
+    }
+
+    public Resultat visResultat(Long id) {
+        return resultatRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + id));
+    }
 }
