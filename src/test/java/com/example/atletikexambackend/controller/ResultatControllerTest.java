@@ -37,6 +37,7 @@ public class ResultatControllerTest {
 
     private Resultat resultat;
     private Long testResultatId;
+    // private String testResultDisciplin;
 
     @BeforeEach
     public void setUp() {
@@ -44,6 +45,7 @@ public class ResultatControllerTest {
         resultat.setId(1L);
         // Set other properties of resultat as needed
         testResultatId = resultat.getId();
+        // testResultDisciplin = resultat.getDisciplin().getNavn();
     }
 
     @AfterEach
@@ -98,7 +100,7 @@ public class ResultatControllerTest {
     public void testRedigerResultat() throws Exception {
         when(resultatService.redigerResultat(anyLong(), anyDouble())).thenReturn(resultat);
 
-        mockMvc.perform(put("/api/resultater/1")
+        mockMvc.perform(put("/api/resultater/" + testResultatId)
                         .param("nytResultat", "10.5")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -106,16 +108,17 @@ public class ResultatControllerTest {
 
     @Test
     public void testFjernResultat() throws Exception {
-        mockMvc.perform(delete("/api/resultater/1")
+        mockMvc.perform(delete("/api/resultater/" + testResultatId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     public void testVisAlleResultaterForDisciplin() throws Exception {
-        when(resultatService.visAlleResultaterForDisciplin(anyLong())).thenReturn(Collections.singletonList(resultat));
+        String disciplinNavn = "Hammerkast";
+        when(resultatService.visAlleResultaterForDisciplin(disciplinNavn)).thenReturn(Collections.singletonList(resultat));
 
-        mockMvc.perform(get("/api/resultater/disciplin/1")
+        mockMvc.perform(get("/api/resultater/disciplin/" + disciplinNavn)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

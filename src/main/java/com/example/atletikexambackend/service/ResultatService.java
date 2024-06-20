@@ -63,8 +63,8 @@ public class ResultatService {
         resultatRepository.deleteById(resultatId);
     }
 
-    public List<Resultat> visAlleResultaterForDisciplin(Long disciplinId) {
-        return resultatRepository.findByDisciplinId(disciplinId);
+    public List<Resultat> visAlleResultaterForDisciplin(String disciplinNavn) {
+        return resultatRepository.findByDisciplinNavn(disciplinNavn);
     }
 
     public List<Resultat> visAlleResultater() {

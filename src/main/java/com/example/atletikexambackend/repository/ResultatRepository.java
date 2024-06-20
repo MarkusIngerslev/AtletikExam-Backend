@@ -11,4 +11,6 @@ public interface ResultatRepository extends JpaRepository<Resultat, Long> {
     List<Resultat> findByDeltagerId(Long deltagerId);
 
     List<Resultat> findByDisciplinId(Long disciplinId);
+
+    List<Resultat> findByDisciplinNavn(String disciplinNavn);
 }

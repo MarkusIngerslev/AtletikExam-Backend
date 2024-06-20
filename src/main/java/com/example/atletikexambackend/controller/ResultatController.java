@@ -2,7 +2,6 @@ package com.example.atletikexambackend.controller;
 
 import com.example.atletikexambackend.entity.Resultat;
 import com.example.atletikexambackend.service.ResultatService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +28,9 @@ public class ResultatController {
         return ResponseEntity.ok(resultat);
     }
 
-    @GetMapping("/disciplin/{id}")
-    public ResponseEntity<List<Resultat>> visAlleResultaterForDisciplin(@PathVariable Long id) {
-        List<Resultat> resultater = resultatService.visAlleResultaterForDisciplin(id);
+    @GetMapping("/disciplin/{disciplinNavn}")
+    public ResponseEntity<List<Resultat>> visAlleResultaterForDisciplin(@PathVariable String disciplinNavn) {
+        List<Resultat> resultater = resultatService.visAlleResultaterForDisciplin(disciplinNavn);
         return ResponseEntity.ok(resultater);
     }
 
