@@ -56,6 +56,7 @@ public class ResultatControllerTest {
         }
     }
 
+    // Test for at hent alle resultater
     @Test
     public void testVisAlleResultater() throws Exception {
         when(resultatService.visAlleResultater()).thenReturn(Collections.singletonList(resultat));
@@ -65,6 +66,7 @@ public class ResultatControllerTest {
                 .andExpect(status().isOk());
     }
 
+    // Test for at hente et resultat
     @Test
     public void testVisResultat() throws Exception {
         when(resultatService.visResultat(anyLong())).thenReturn(resultat);
@@ -74,18 +76,18 @@ public class ResultatControllerTest {
                 .andExpect(status().isOk());
     }
 
+    // Test for at registrere et resultat
     @Test
     public void testRegistrerResultat() throws Exception {
-        when(resultatService.registrerResultat(anyLong(), anyLong(), anyDouble())).thenReturn(resultat);
+        when(resultatService.registrerResultat(any(Resultat.class))).thenReturn(resultat);
 
         mockMvc.perform(post("/api/resultater")
-                        .param("deltagerId", "1")
-                        .param("disciplinId", "1")
-                        .param("resultat", "10.5")
+                        .content(new ObjectMapper().writeValueAsString(resultat))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 
+    // Test for at registrere flere resultater
     @Test
     public void testRegistrerFlereResultater() throws Exception {
         when(resultatService.registrerFlereResultater(any(List.class))).thenReturn(Collections.singletonList(resultat));
@@ -96,16 +98,18 @@ public class ResultatControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    // Test for at opdatere et resultat
     @Test
-    public void testRedigerResultat() throws Exception {
-        when(resultatService.redigerResultat(anyLong(), anyDouble())).thenReturn(resultat);
+    public void testOpdaterResultat() throws Exception {
+        when(resultatService.opdaterResultat(any(Resultat.class))).thenReturn(resultat);
 
         mockMvc.perform(put("/api/resultater/" + testResultatId)
-                        .param("nytResultat", "10.5")
+                        .content(new ObjectMapper().writeValueAsString(resultat))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
+    // Test for at fjerne et resultat
     @Test
     public void testFjernResultat() throws Exception {
         mockMvc.perform(delete("/api/resultater/" + testResultatId)
@@ -113,6 +117,7 @@ public class ResultatControllerTest {
                 .andExpect(status().isNoContent());
     }
 
+    // Test for at hente alle resultater for en disciplin
     @Test
     public void testVisAlleResultaterForDisciplin() throws Exception {
         String disciplinNavn = "Hammerkast";

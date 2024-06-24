@@ -22,20 +22,23 @@ public class ResultatService {
     @Autowired
     private DisciplinRepository disciplinRepository;
 
-    public Resultat registrerResultat(Long deltagerId, Long disciplinId, double resultat) {
-        Deltager deltager = deltagerRepository.findById(deltagerId)
-                .orElseThrow(() -> new RuntimeException("Deltager ikke fundet med id : " + deltagerId));
-        Disciplin disciplin = disciplinRepository.findById(disciplinId)
-                .orElseThrow(() -> new RuntimeException("Disciplin ikke fundet med id : " + disciplinId));
-
-        Resultat nytResultat = new Resultat();
-        nytResultat.setDeltager(deltager);
-        nytResultat.setDisciplin(disciplin);
-        nytResultat.setResultat(resultat);
-
-        return resultatRepository.save(nytResultat);
+    // Hent alle resultater
+    public List<Resultat> visAlleResultater() {
+        return resultatRepository.findAll();
     }
 
+    // Hent et resultat fra id
+    public Resultat visResultat(Long id) {
+        return resultatRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + id));
+    }
+
+    // Opret enkelt resultat
+    public Resultat registrerResultat(Resultat resultat) {
+                return resultatRepository.save(resultat);
+    }
+
+    // Opret flere resultater på en gang fra en liste
     public List<Resultat> registrerFlereResultater(List<Resultat> resultater) {
         for (Resultat resultat : resultater) {
             Deltager deltager = deltagerRepository.findById(resultat.getDeltager().getId())
@@ -50,29 +53,27 @@ public class ResultatService {
         return resultatRepository.saveAll(resultater);
     }
 
-    public Resultat redigerResultat(Long resultatId, double nytResultat) {
-        Resultat eksisterendeResultat = resultatRepository.findById(resultatId)
-                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + resultatId));
+    // Opdater et resultat
+    public Resultat opdaterResultat(Resultat resultat) {
+        Resultat eksisterendeResultat = resultatRepository.findById(resultat.getId())
+                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + resultat.getId()));
 
-        eksisterendeResultat.setResultat(nytResultat);
+        eksisterendeResultat.setResultattype(resultat.getResultattype());
+        eksisterendeResultat.setDato(resultat.getDato());
+        eksisterendeResultat.setResultatvalue(resultat.getResultatvalue());
+        eksisterendeResultat.setDeltager(resultat.getDeltager());
+        eksisterendeResultat.setDisciplin(resultat.getDisciplin());
 
         return resultatRepository.save(eksisterendeResultat);
     }
 
+    // fjern et resultat
     public void fjernResultat(Long resultatId) {
         resultatRepository.deleteById(resultatId);
     }
 
+    // find resultat ud fra disciplin
     public List<Resultat> visAlleResultaterForDisciplin(String disciplinNavn) {
         return resultatRepository.findByDisciplinNavn(disciplinNavn);
-    }
-
-    public List<Resultat> visAlleResultater() {
-        return resultatRepository.findAll();
-    }
-
-    public Resultat visResultat(Long id) {
-        return resultatRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + id));
     }
 }

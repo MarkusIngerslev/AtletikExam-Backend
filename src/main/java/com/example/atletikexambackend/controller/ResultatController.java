@@ -35,8 +35,8 @@ public class ResultatController {
     }
 
     @PostMapping
-    public ResponseEntity<Resultat> registrerResultat(@RequestParam Long deltagerId, @RequestParam Long disciplinId, @RequestParam double resultat) {
-        Resultat nytResultat = resultatService.registrerResultat(deltagerId, disciplinId, resultat);
+    public ResponseEntity<Resultat> registrerResultat(@RequestBody Resultat resultat) {
+        Resultat nytResultat = resultatService.registrerResultat(resultat);
         return new ResponseEntity<>(nytResultat, HttpStatus.CREATED);
     }
 
@@ -47,9 +47,14 @@ public class ResultatController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resultat> redigerResultat(@PathVariable Long id, @RequestParam double nytResultat) {
-        Resultat opdateretResultat = resultatService.redigerResultat(id, nytResultat);
-        return ResponseEntity.ok(opdateretResultat);
+    public ResponseEntity<Resultat> opdaterResultat(@PathVariable Long id  ,@RequestBody Resultat resultat) {
+        try {
+            resultat.setId(id);
+            Resultat opdateretResultat = resultatService.opdaterResultat(resultat);
+            return ResponseEntity.ok(opdateretResultat);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
