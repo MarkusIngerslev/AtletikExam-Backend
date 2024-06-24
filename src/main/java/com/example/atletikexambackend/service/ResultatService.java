@@ -1,5 +1,6 @@
 package com.example.atletikexambackend.service;
 
+import com.example.atletikexambackend.DTO.ResultatDTO;
 import com.example.atletikexambackend.entity.Deltager;
 import com.example.atletikexambackend.entity.Disciplin;
 import com.example.atletikexambackend.entity.Resultat;
@@ -53,19 +54,39 @@ public class ResultatService {
         return resultatRepository.saveAll(resultater);
     }
 
+
+
     // Opdater et resultat
-    public Resultat opdaterResultat(Resultat resultat) {
-        Resultat eksisterendeResultat = resultatRepository.findById(resultat.getId())
-                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + resultat.getId()));
+    public Resultat opdaterResultat(Long id, ResultatDTO resultatDTO) {
+        Resultat resultat = resultatRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + id));
 
-        eksisterendeResultat.setResultattype(resultat.getResultattype());
-        eksisterendeResultat.setDato(resultat.getDato());
-        eksisterendeResultat.setResultatvalue(resultat.getResultatvalue());
-        eksisterendeResultat.setDeltager(resultat.getDeltager());
-        eksisterendeResultat.setDisciplin(resultat.getDisciplin());
+        if (resultatDTO.getResultattype() != null) {
+            resultat.setResultattype(resultatDTO.getResultattype());
+        }
+        if (resultatDTO.getDato() != null) {
+            resultat.setDato(resultatDTO.getDato());
+        }
+        if (resultatDTO.getResultatvalue() != null) {
+            resultat.setResultatvalue(resultatDTO.getResultatvalue());
+        }
 
-        return resultatRepository.save(eksisterendeResultat);
+        return resultatRepository.save(resultat);
     }
+
+
+//    public Resultat opdaterResultat(Resultat resultat) {
+//        Resultat eksisterendeResultat = resultatRepository.findById(resultat.getId())
+//                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + resultat.getId()));
+//
+//        eksisterendeResultat.setResultattype(resultat.getResultattype());
+//        eksisterendeResultat.setDato(resultat.getDato());
+//        eksisterendeResultat.setResultatvalue(resultat.getResultatvalue());
+//        eksisterendeResultat.setDeltager(resultat.getDeltager());
+//        eksisterendeResultat.setDisciplin(resultat.getDisciplin());
+//
+//        return resultatRepository.save(eksisterendeResultat);
+//    }
 
     // fjern et resultat
     public void fjernResultat(Long resultatId) {

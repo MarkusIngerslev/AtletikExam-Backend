@@ -1,5 +1,6 @@
 package com.example.atletikexambackend.controller;
 
+import com.example.atletikexambackend.DTO.ResultatDTO;
 import com.example.atletikexambackend.entity.Resultat;
 import com.example.atletikexambackend.repository.ResultatRepository;
 import com.example.atletikexambackend.service.ResultatService;
@@ -99,15 +100,26 @@ public class ResultatControllerTest {
     }
 
     // Test for at opdatere et resultat
+
     @Test
     public void testOpdaterResultat() throws Exception {
-        when(resultatService.opdaterResultat(any(Resultat.class))).thenReturn(resultat);
+        when(resultatService.opdaterResultat(anyLong(), any(ResultatDTO.class))).thenReturn(resultat);
 
         mockMvc.perform(put("/api/resultater/" + testResultatId)
                         .content(new ObjectMapper().writeValueAsString(resultat))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+//    @Test
+//    public void testOpdaterResultat() throws Exception {
+//        when(resultatService.opdaterResultat(any(Resultat.class))).thenReturn(resultat);
+//
+//        mockMvc.perform(put("/api/resultater/" + testResultatId)
+//                        .content(new ObjectMapper().writeValueAsString(resultat))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
+//    }
 
     // Test for at fjerne et resultat
     @Test

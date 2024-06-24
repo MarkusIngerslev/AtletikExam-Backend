@@ -1,5 +1,6 @@
 package com.example.atletikexambackend.controller;
 
+import com.example.atletikexambackend.DTO.ResultatDTO;
 import com.example.atletikexambackend.entity.Resultat;
 import com.example.atletikexambackend.service.ResultatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +48,21 @@ public class ResultatController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resultat> opdaterResultat(@PathVariable Long id  ,@RequestBody Resultat resultat) {
-        try {
-            resultat.setId(id);
-            Resultat opdateretResultat = resultatService.opdaterResultat(resultat);
-            return ResponseEntity.ok(opdateretResultat);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Resultat> opdaterResultat(@PathVariable Long id, @RequestBody ResultatDTO resultatDTO) {
+        Resultat updateResultat = resultatService.opdaterResultat(id, resultatDTO);
+        return ResponseEntity.ok(updateResultat);
     }
+
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Resultat> opdaterResultat(@PathVariable Long id  , @RequestBody Resultat resultat) {
+//        try {
+//            resultat.setId(id);
+//            Resultat opdateretResultat = resultatService.opdaterResultat(resultat);
+//            return ResponseEntity.ok(opdateretResultat);
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> fjernResultat(@PathVariable Long id) {
