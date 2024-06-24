@@ -111,16 +111,6 @@ public class ResultatControllerTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    public void testOpdaterResultat() throws Exception {
-//        when(resultatService.opdaterResultat(any(Resultat.class))).thenReturn(resultat);
-//
-//        mockMvc.perform(put("/api/resultater/" + testResultatId)
-//                        .content(new ObjectMapper().writeValueAsString(resultat))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
-
     // Test for at fjerne et resultat
     @Test
     public void testFjernResultat() throws Exception {

@@ -74,20 +74,6 @@ public class ResultatService {
         return resultatRepository.save(resultat);
     }
 
-
-//    public Resultat opdaterResultat(Resultat resultat) {
-//        Resultat eksisterendeResultat = resultatRepository.findById(resultat.getId())
-//                .orElseThrow(() -> new RuntimeException("Resultat ikke fundet med id : " + resultat.getId()));
-//
-//        eksisterendeResultat.setResultattype(resultat.getResultattype());
-//        eksisterendeResultat.setDato(resultat.getDato());
-//        eksisterendeResultat.setResultatvalue(resultat.getResultatvalue());
-//        eksisterendeResultat.setDeltager(resultat.getDeltager());
-//        eksisterendeResultat.setDisciplin(resultat.getDisciplin());
-//
-//        return resultatRepository.save(eksisterendeResultat);
-//    }
-
     // fjern et resultat
     public void fjernResultat(Long resultatId) {
         resultatRepository.deleteById(resultatId);

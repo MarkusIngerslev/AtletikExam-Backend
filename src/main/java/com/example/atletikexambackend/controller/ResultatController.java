@@ -53,17 +53,6 @@ public class ResultatController {
         return ResponseEntity.ok(updateResultat);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Resultat> opdaterResultat(@PathVariable Long id  , @RequestBody Resultat resultat) {
-//        try {
-//            resultat.setId(id);
-//            Resultat opdateretResultat = resultatService.opdaterResultat(resultat);
-//            return ResponseEntity.ok(opdateretResultat);
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> fjernResultat(@PathVariable Long id) {
         resultatService.fjernResultat(id);
